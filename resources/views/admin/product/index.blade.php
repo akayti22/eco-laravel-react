@@ -35,9 +35,8 @@
                         <i class="fa fa-trash"></i>
                     </button>
                     |
-                    <a href="" class="btn btn-outline-success">Add Product</a>
-                    <a href="" class="btn btn-outline-danger">Remove Product</a>
-
+                    <a href="{{route('product-add.create').'?pid='.$d->id}}" class="btn btn-outline-success">Add Product</a>
+                    <a href="{{route('product-add.destroy',$d->id)}}" class="btn btn-outline-danger">Remove Product</a>
                 </form>
             </td>           
         </tr>

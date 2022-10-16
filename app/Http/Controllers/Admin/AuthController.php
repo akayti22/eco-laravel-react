@@ -15,7 +15,7 @@ class AuthController extends Controller
         $cre = $request->only('email','password');
 
         if(auth()->guard('admin')->attempt($cre)){
-           return redirect('/admin');
+           return redirect('/admin/dashboard');
         }
 
         return 'email and password not match';

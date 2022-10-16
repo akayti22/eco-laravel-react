@@ -17,13 +17,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'admin','namespace' => 'admin'],function(){
-    Route::get('/login','AuthController@showLogin');
-    Route::post('/login','AuthController@login');
-    Route::get('/','AuthController@dashboard');
 
-    Route::resource('/supplier','SupplierController');
-    Route::resource('/product','ProductController');
+Route::get('admin/login','Admin\AuthController@showLogin');
+Route::post('admin/login','Admin\AuthController@login');
+Route::group(['prefix' => 'admin','namespace' => 'Admin',"middleware"=>'isAdmin'],function(){
+    Route::get('/dashboard','AuthController@dashboard');
+    Route::resource('supplier','SupplierController');
+    Route::resource('product','ProductController');
+    Route::resource('product-add','ProductAddController');
+
 });
 
 
