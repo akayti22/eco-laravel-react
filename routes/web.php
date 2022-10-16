@@ -25,7 +25,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin',"middleware"=>'isAdmin'
     Route::resource('supplier','SupplierController');
     Route::resource('product','ProductController');
     Route::resource('product-add','ProductAddController');
-
+    Route::resource('income','IncomeController');
 });
 
 

@@ -35,6 +35,12 @@
                 <span class="nav-link-text">Product Purchase</span>
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{route('income.index')}}">
+                <i class="ni ni-planet text-orange"></i>
+                <span class="nav-link-text">Income</span>
+              </a>
+            </li>
           </ul>
           <!-- Divider -->
           <hr class="my-3">

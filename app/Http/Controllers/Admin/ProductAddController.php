@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductAdd;
+use App\Models\ProductRemove;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -29,13 +30,14 @@ class ProductAddController extends Controller
      */
     public function create()
     {
+        $action = request()->action;
         $product = Product::find(request()->pid);
         if(!$product){
             return redirect()->back()->with('error','product not found');
         }
         $product_name = $product->name;         
         $supplier = Supplier::all();
-        return view('admin.product-add.create',compact('supplier','product_name'));
+        return view('admin.product-add.create',compact('supplier','product_name','action'));
     }
 
     /**
@@ -46,18 +48,36 @@ class ProductAddController extends Controller
      */
     public function store(Request $request)
     {
-        ProductAdd::create([
-            'product_id' => request()->pid,
-            'supplier_id' => request()->supplier_id,
-            'total_quantity'=> request()->total_quantity,
-            'description' => request()->desccription
-        ]);
+        if(request()->action == 'add'){
+            ProductAdd::create([
+                'product_id' => request()->pid,
+                'supplier_id' => request()->supplier_id,
+                'total_quantity'=> request()->total_quantity,
+                'description' => request()->desccription
+            ]);
 
         Product::where('id',Request()->pid)->update([
             'total_quantity' => DB::raw('total_quantity+'.request()->total_quantity)
         ]);
 
         return redirect()->back()->with('success',request()->total_quantity . ' Product added');
+
+        }elseif(request()->action == 'reduce'){
+            ProductRemove::create([
+                'product_id' => request()->pid,
+                'total_quantity'=> request()->total_quantity,
+                'description' => request()->desccription
+            ]);
+
+            Product::where('id',Request()->pid)->update([
+                'total_quantity' => DB::raw('total_quantity-'.request()->total_quantity)
+            ]);
+
+            return redirect()->back()->with('success',request()->total_quantity . ' Product Remove');
+
+    }
+
+        
     }
 
     /**
