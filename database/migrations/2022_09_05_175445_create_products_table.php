@@ -26,6 +26,7 @@ return new class extends Migration
             $table->integer('discount_price');
             $table->integer('total_quantity');
             $table->integer('view_count');
+            $table->enum('is_feature',['yes','no'])->default('no');
             $table->timestamps();
         });
     }

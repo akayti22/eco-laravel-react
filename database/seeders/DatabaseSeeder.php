@@ -5,7 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Admin;
-use App\Models\Brands;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Supplier;
@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
 
     $brand = ['huawei','apple','xiaomi','samsung','zte'];
     foreach($brand as $b){
-        Brands::create([
+        Brand::create([
             'slug' => uniqid() . $b,
             'name' => $b
         ]);
@@ -43,7 +43,8 @@ class DatabaseSeeder extends Seeder
     foreach($category as $c){
         Category::create([
             'slug' => uniqid().$c,
-            'name' => $c
+            'name' => $c,
+            'product_count' => 10,
         ]);
     }
 

@@ -176,4 +176,13 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->back()->with('success','Product Deleted');
     }
+
+    public function setFeature($id){
+        $feature = request()->feature;
+        Product::where('id',$id)->update([
+            'is_feature' => $feature,
+        ]);
+
+        return redirect()->back()->with('success','Product Featurn Updated');
+    }
 }
